@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Tide PlayClean</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet" />
+	<style>
+		:root {
+			--bg: #fff6e9;
+			--surface: #fffdf8;
+			--text: #003a8f;
+			--muted: #2c589b;
+			--primary: #f25c05;
+			--secondary: #4cc3f1;
+			--accent: #2bb673;
+			--line: rgba(0, 58, 143, 0.14);
+			--shadow: 0 12px 28px rgba(0, 58, 143, 0.12);
+			--nav: rgba(255, 246, 233, 0.85);
+			--hero-overlay: linear-gradient(130deg, rgba(0, 58, 143, 0.72), rgba(242, 92, 5, 0.62));
+			--radius: 20px;
+			--ease: 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+		}
+
+		[data-theme="dark"] {
+			--bg: #003a8f;
+			--surface: #0d4a9f;
+			--text: #fff6e9;
+			--muted: #c7dcff;
+			--primary: #f25c05;
+			--secondary: #2bb673;
+			--accent: #4cc3f1;
+			--line: rgba(255, 246, 233, 0.2);
+			--shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+			--nav: rgba(0, 58, 143, 0.8);
+			--hero-overlay: linear-gradient(130deg, rgba(0, 0, 0, 0.55), rgba(0, 58, 143, 0.75));
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			font-family: "Outfit", sans-serif;
+			color: var(--text);
+			background: radial-gradient(circle at 15% 10%, rgba(76, 195, 241, 0.15), transparent 35%),
+				radial-gradient(circle at 80% 10%, rgba(242, 92, 5, 0.13), transparent 40%),
+				var(--bg);
+			line-height: 1.5;
+			transition: background var(--ease), color var(--ease);
+			overflow-x: hidden;
+		}
+
+		.ripple-transition {
+			position: fixed;
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			background: rgba(242, 92, 5, 0.25);
+			transform: scale(0);
+			pointer-events: none;
+			z-index: 999;
+			animation: spread 750ms ease-out forwards;
+		}
+
+		@keyframes spread {
+			to {
+				transform: scale(90);
+				opacity: 0;
+			}
+		}
+
+		img {
+			max-width: 100%;
+			display: block;
+		}
+
+		.container {
+			width: min(1120px, 92vw);
+			margin: 0 auto;
+		}
+
+		.nav {
+			position: sticky;
+			top: 0;
+			z-index: 50;
+			border-bottom: 1px solid var(--line);
+			backdrop-filter: blur(12px);
+			background: var(--nav);
+			transition: background var(--ease), border-color var(--ease);
+		}
+
+		.nav-row {
+			min-height: 72px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 16px;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			text-decoration: none;
+			color: var(--text);
+			font-family: "Baloo 2", sans-serif;
+			font-size: 1.25rem;
+			font-weight: 800;
+		}
+
+		.brand-mark {
+			width: 34px;
+			height: 34px;
+			border-radius: 50%;
+			border: 3px solid var(--secondary);
+			position: relative;
+		}
+
+		.brand-mark::before,
+		.brand-mark::after {
+			content: "";
+			position: absolute;
+			inset: 5px;
+			border-radius: 50%;
+			border: 2px solid var(--primary);
+		}
+
+		.brand-mark::after {
+			inset: 11px;
+			border-color: var(--accent);
+		}
+
+		.nav-links {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 10px;
+			list-style: none;
+		}
+
+		.nav-links a {
+			text-decoration: none;
+			color: var(--text);
+			font-weight: 500;
+			font-size: 0.95rem;
+			padding: 8px 12px;
+			border-radius: 999px;
+			transition: background var(--ease), transform var(--ease);
+		}
+
+		.nav-links a:hover,
+		.nav-links a:focus-visible {
+			background: rgba(242, 92, 5, 0.15);
+			transform: translateY(-1px);
+			outline: none;
+		}
+
+		.theme-toggle {
+			border: 1px solid var(--line);
+			background: var(--surface);
+			color: var(--text);
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			cursor: pointer;
+			font-size: 1.1rem;
+			transition: transform var(--ease), border-color var(--ease), background var(--ease);
+		}
+
+		.theme-toggle:hover {
+			transform: rotate(10deg) scale(1.04);
+		}
+
+		section {
+			padding: 84px 0;
+			scroll-margin-top: 88px;
+		}
+
+		.hero {
+			min-height: calc(100vh - 72px);
+			display: grid;
+			align-items: end;
+			position: relative;
+			overflow: hidden;
+			border-bottom: 1px solid var(--line);
+		}
+
+		.hero-bg {
+			position: absolute;
+			inset: 0;
+			background-image: var(--hero-overlay), url("https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1800&q=80");
+			background-size: cover;
+			background-position: center;
+			transform: scale(1.02);
+		}
+
+		.stain {
+			position: absolute;
+			border-radius: 50%;
+			filter: blur(0.4px);
+			animation: fade-clean 8s ease-in-out infinite;
+			opacity: 0.8;
+		}
+
+		.stain.one { width: 60px; height: 44px; left: 20%; top: 35%; background: rgba(118, 77, 41, 0.45); }
+		.stain.two { width: 36px; height: 30px; left: 68%; top: 40%; background: rgba(133, 76, 38, 0.42); animation-delay: 1.2s; }
+		.stain.three { width: 52px; height: 36px; left: 52%; top: 64%; background: rgba(99, 58, 30, 0.42); animation-delay: 2.2s; }
+
+		@keyframes fade-clean {
+			0%, 35% { opacity: 0.85; transform: scale(1); }
+			60%, 100% { opacity: 0.08; transform: scale(0.75); }
+		}
+
+		.ring {
+			position: absolute;
+			border: 3px solid rgba(76, 195, 241, 0.7);
+			border-radius: 50%;
+			animation: ripple 4.8s ease-out infinite;
+		}
+
+		.ring.a { width: 140px; height: 140px; left: 16%; top: 27%; }
+		.ring.b { width: 210px; height: 210px; right: 18%; top: 28%; animation-delay: 1.2s; }
+		.ring.c { width: 170px; height: 170px; right: 40%; bottom: 8%; animation-delay: 2.2s; }
+
+		@keyframes ripple {
+			0% { transform: scale(0.42); opacity: 0.85; }
+			100% { transform: scale(1.3); opacity: 0; }
+		}
+
+		.hero-content {
+			position: relative;
+			z-index: 2;
+			color: #fff;
+			padding: 80px 0 70px;
+			max-width: 760px;
+		}
+
+		.eyebrow {
+			display: inline-block;
+			margin-bottom: 14px;
+			background: rgba(255, 255, 255, 0.2);
+			border: 1px solid rgba(255, 255, 255, 0.36);
+			padding: 6px 12px;
+			border-radius: 999px;
+			font-size: 0.85rem;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+		}
+
+		.hero h1 {
+			font-family: "Baloo 2", sans-serif;
+			font-size: clamp(2.3rem, 5vw, 4.2rem);
+			line-height: 1.05;
+			margin-bottom: 14px;
+		}
+
+		.hero p {
+			font-size: clamp(1rem, 1.8vw, 1.2rem);
+			max-width: 62ch;
+			margin-bottom: 24px;
+			color: rgba(255, 255, 255, 0.92);
+		}
+
+		.btn-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+		}
+
+		.btn {
+			border: none;
+			border-radius: 999px;
+			padding: 12px 18px;
+			font-size: 0.95rem;
+			font-weight: 700;
+			cursor: pointer;
+			text-decoration: none;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			transition: transform var(--ease), box-shadow var(--ease), background var(--ease), color var(--ease);
+		}
+
+		.btn:hover {
+			transform: translateY(-2px);
+			box-shadow: var(--shadow);
+		}
+
+		.btn-primary {
+			background: var(--primary);
+			color: #fff;
+		}
+
+		.btn-secondary {
+			background: var(--secondary);
+			color: #012d66;
+		}
+
+		.btn-ghost {
+			background: rgba(255, 255, 255, 0.18);
+			color: #fff;
+			border: 1px solid rgba(255, 255, 255, 0.36);
+		}
+
+		.section-head {
+			margin-bottom: 24px;
+			display: flex;
+			justify-content: space-between;
+			align-items: end;
+			gap: 14px;
+			flex-wrap: wrap;
+		}
+
+		.section-head h2 {
+			font-family: "Baloo 2", sans-serif;
+			font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+			line-height: 1.1;
+		}
+
+		.section-head p {
+			max-width: 64ch;
+			color: var(--muted);
+		}
+
+		.mission-grid,
+		.products-grid,
+		.community-grid,
+		.app-grid,
+		.shop-grid,
+		.steps-grid {
+			display: grid;
+			gap: 18px;
+		}
+
+		.mission-grid {
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		}
+
+		.card {
+			border: 1px solid var(--line);
+			border-radius: var(--radius);
+			background: linear-gradient(180deg, var(--surface), rgba(255, 255, 255, 0.45));
+			box-shadow: var(--shadow);
+			padding: 20px;
+			transition: border-color var(--ease), transform var(--ease);
+		}
+
+		[data-theme="dark"] .card {
+			background: linear-gradient(180deg, rgba(11, 70, 149, 0.95), rgba(10, 58, 124, 0.88));
+		}
+
+		.card:hover {
+			transform: translateY(-3px);
+			border-color: rgba(242, 92, 5, 0.45);
+		}
+
+		.card h3 {
+			font-family: "Baloo 2", sans-serif;
+			margin-bottom: 8px;
+			font-size: 1.35rem;
+		}
+
+		.card p {
+			color: var(--muted);
+			margin-bottom: 12px;
+		}
+
+		.steps-grid {
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		}
+
+		.step-hotspots {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			margin-top: 10px;
+		}
+
+		.chip {
+			border: 1px solid var(--line);
+			background: var(--surface);
+			color: var(--text);
+			border-radius: 999px;
+			padding: 8px 11px;
+			font-size: 0.85rem;
+			cursor: pointer;
+			transition: background var(--ease), transform var(--ease);
+		}
+
+		.chip:hover,
+		.chip.active {
+			background: rgba(76, 195, 241, 0.24);
+			transform: translateY(-1px);
+		}
+
+		.story-output {
+			margin-top: 14px;
+			border-left: 3px solid var(--primary);
+			padding: 10px 12px;
+			font-size: 0.93rem;
+			color: var(--muted);
+			min-height: 66px;
+			background: rgba(76, 195, 241, 0.08);
+			border-radius: 8px;
+		}
+
+		.drag-play {
+			margin-top: 14px;
+			border: 1px dashed var(--line);
+			border-radius: 14px;
+			padding: 10px;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 8px;
+			font-size: 0.82rem;
+		}
+
+		.drop-zone {
+			min-height: 70px;
+			border: 1px dashed var(--line);
+			border-radius: 10px;
+			display: grid;
+			place-items: center;
+			text-align: center;
+			padding: 6px;
+			color: var(--muted);
+		}
+
+		.avatar {
+			width: 42px;
+			aspect-ratio: 1;
+			display: grid;
+			place-items: center;
+			border-radius: 50%;
+			background: var(--primary);
+			color: #fff;
+			cursor: grab;
+			font-size: 1.1rem;
+			user-select: none;
+			box-shadow: 0 8px 14px rgba(0, 0, 0, 0.18);
+		}
+
+		.products-grid {
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		}
+
+		.viewer {
+			border: 1px solid var(--line);
+			border-radius: 14px;
+			min-height: 180px;
+			margin-bottom: 12px;
+			display: grid;
+			place-items: center;
+			position: relative;
+			overflow: hidden;
+			background: linear-gradient(140deg, rgba(76, 195, 241, 0.24), rgba(242, 92, 5, 0.14));
+		}
+
+		.clip-model {
+			width: 130px;
+			height: 78px;
+			border-radius: 16px;
+			background: linear-gradient(120deg, #0e5fc0, #003a8f);
+			position: relative;
+			transform-style: preserve-3d;
+			transition: transform var(--ease);
+			box-shadow: 0 12px 18px rgba(0, 0, 0, 0.22);
+		}
+
+		.clip-model::before,
+		.clip-model::after {
+			content: "";
+			position: absolute;
+			border-radius: 8px;
+			background: #f25c05;
+		}
+
+		.clip-model::before {
+			width: 28px;
+			height: 44px;
+			left: 10px;
+			top: 16px;
+		}
+
+		.clip-model::after {
+			width: 16px;
+			height: 16px;
+			right: 10px;
+			top: 10px;
+			border-radius: 50%;
+			background: #4cc3f1;
+		}
+
+		.hotspots {
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			margin-bottom: 10px;
+		}
+
+		.map-wrap {
+			border: 1px solid var(--line);
+			border-radius: var(--radius);
+			overflow: hidden;
+			box-shadow: var(--shadow);
+			background: repeating-linear-gradient(
+					0deg,
+					rgba(76, 195, 241, 0.12),
+					rgba(76, 195, 241, 0.12) 40px,
+					transparent 40px,
+					transparent 80px
+				),
+				repeating-linear-gradient(
+					90deg,
+					rgba(242, 92, 5, 0.08),
+					rgba(242, 92, 5, 0.08) 50px,
+					transparent 50px,
+					transparent 100px
+				),
+				var(--surface);
+			min-height: 330px;
+			position: relative;
+			padding: 18px;
+		}
+
+		.pin {
+			position: absolute;
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			background: var(--primary);
+			border: 2px solid #fff;
+			box-shadow: 0 0 0 8px rgba(242, 92, 5, 0.2);
+			cursor: pointer;
+			animation: pin-pulse 2.8s ease-in-out infinite;
+		}
+
+		@keyframes pin-pulse {
+			0%, 100% { transform: scale(1); }
+			50% { transform: scale(1.18); }
+		}
+
+		.pin-info {
+			position: absolute;
+			right: 18px;
+			bottom: 18px;
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: var(--surface);
+			padding: 12px;
+			min-width: 220px;
+			box-shadow: var(--shadow);
+			font-size: 0.9rem;
+		}
+
+		.community-grid {
+			grid-template-columns: 1.5fr 1fr;
+		}
+
+		.counter-grid {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(120px, 1fr));
+			gap: 10px;
+			margin-bottom: 12px;
+		}
+
+		.counter {
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			padding: 12px;
+			background: rgba(255, 255, 255, 0.35);
+		}
+
+		[data-theme="dark"] .counter {
+			background: rgba(255, 246, 233, 0.08);
+		}
+
+		.counter strong {
+			display: block;
+			font-size: 1.35rem;
+			font-family: "Baloo 2", sans-serif;
+		}
+
+		.badges {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+		}
+
+		.badge {
+			border-radius: 999px;
+			padding: 8px 12px;
+			background: rgba(43, 182, 115, 0.16);
+			border: 1px solid rgba(43, 182, 115, 0.35);
+			font-size: 0.85rem;
+			cursor: pointer;
+			transition: transform var(--ease), background var(--ease);
+		}
+
+		.badge:hover {
+			transform: scale(1.04);
+			background: rgba(43, 182, 115, 0.28);
+		}
+
+		.leaderboard li {
+			list-style: none;
+			display: flex;
+			justify-content: space-between;
+			border-bottom: 1px dashed var(--line);
+			padding: 8px 0;
+			color: var(--muted);
+		}
+
+		.app-grid {
+			grid-template-columns: 0.9fr 1.1fr;
+			align-items: center;
+		}
+
+		.phone {
+			width: min(290px, 80vw);
+			margin-inline: auto;
+			border-radius: 34px;
+			border: 8px solid #091e42;
+			background: #f7fbff;
+			padding: 14px;
+			color: #173f78;
+			box-shadow: var(--shadow);
+		}
+
+		.phone-screen {
+			border: 1px solid #b7d8ff;
+			border-radius: 22px;
+			padding: 12px;
+			min-height: 420px;
+			background: linear-gradient(180deg, #ffffff, #e9f5ff);
+		}
+
+		.phone-tabbar {
+			display: flex;
+			gap: 8px;
+			margin-bottom: 10px;
+		}
+
+		.phone-tab {
+			flex: 1;
+			border: 1px solid #c7e3ff;
+			background: #fff;
+			border-radius: 8px;
+			padding: 6px;
+			font-size: 0.75rem;
+			cursor: pointer;
+		}
+
+		.phone-tab.active {
+			background: #173f78;
+			color: #fff;
+		}
+
+		.phone-pane {
+			display: none;
+			font-size: 0.88rem;
+			color: #2e5e99;
+		}
+
+		.phone-pane.active {
+			display: block;
+			animation: fade-in 220ms ease;
+		}
+
+		@keyframes fade-in {
+			from { opacity: 0; transform: translateY(4px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.shop-grid {
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		}
+
+		.footer {
+			border-top: 1px solid var(--line);
+			padding: 34px 0 52px;
+			color: var(--muted);
+		}
+
+		.footer-row {
+			display: flex;
+			justify-content: space-between;
+			gap: 14px;
+			flex-wrap: wrap;
+		}
+
+		.socials {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+		}
+
+		.socials a {
+			text-decoration: none;
+			color: var(--text);
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			padding: 6px 11px;
+			font-size: 0.88rem;
+		}
+
+		.modal,
+		.overlay {
+			position: fixed;
+			inset: 0;
+			display: none;
+			z-index: 120;
+		}
+
+		.overlay.active,
+		.modal.active {
+			display: grid;
+		}
+
+		.overlay {
+			background: rgba(0, 0, 0, 0.52);
+			place-items: center;
+			padding: 18px;
+		}
+
+		.modal-card {
+			background: var(--surface);
+			color: var(--text);
+			border: 1px solid var(--line);
+			border-radius: 16px;
+			width: min(520px, 94vw);
+			box-shadow: var(--shadow);
+			padding: 18px;
+			position: relative;
+		}
+
+		.close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			border: 1px solid var(--line);
+			border-radius: 50%;
+			width: 34px;
+			height: 34px;
+			background: var(--surface);
+			color: var(--text);
+			cursor: pointer;
+		}
+
+		.confirmation {
+			margin-top: 12px;
+			border-radius: 10px;
+			border: 1px solid rgba(43, 182, 115, 0.5);
+			background: rgba(43, 182, 115, 0.18);
+			padding: 10px;
+			display: none;
+			animation: fade-in 300ms ease;
+		}
+
+		.confirmation.active {
+			display: block;
+		}
+
+		.demo-preview {
+			display: none;
+			margin: 10px 0;
+			border-radius: 12px;
+			border: 1px solid var(--line);
+			min-height: 130px;
+			position: relative;
+			overflow: hidden;
+			background: linear-gradient(130deg, rgba(76, 195, 241, 0.22), rgba(242, 92, 5, 0.18));
+		}
+
+		.demo-preview.active {
+			display: block;
+		}
+
+		.demo-kid,
+		.demo-ring {
+			position: absolute;
+		}
+
+		.demo-kid {
+			font-size: 2rem;
+			left: 20px;
+			bottom: 16px;
+			animation: kid-bounce 1.6s ease-in-out infinite;
+		}
+
+		.demo-ring {
+			width: 24px;
+			height: 24px;
+			border-radius: 50%;
+			border: 3px solid rgba(0, 58, 143, 0.7);
+			right: 36px;
+			top: 40px;
+			animation: demo-ripple 2.2s ease-out infinite;
+		}
+
+		.demo-ring.r2 { animation-delay: 0.7s; }
+		.demo-ring.r3 { animation-delay: 1.3s; }
+
+		@keyframes kid-bounce {
+			0%, 100% { transform: translateY(0); }
+			50% { transform: translateY(-6px); }
+		}
+
+		@keyframes demo-ripple {
+			from { transform: scale(0.5); opacity: 0.9; }
+			to { transform: scale(3.2); opacity: 0; }
+		}
+
+		@media (max-width: 960px) {
+			.community-grid,
+			.app-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.nav-row {
+				padding: 8px 0;
+				align-items: flex-start;
+			}
+
+			.nav-links {
+				justify-content: flex-start;
+			}
+		}
+
+		@media (max-width: 680px) {
+			section {
+				padding: 66px 0;
+			}
+
+			.hero {
+				min-height: calc(100vh - 96px);
+			}
+
+			.hero-content {
+				padding-bottom: 50px;
+			}
+
+			.counter-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.drag-play {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</head>
+<body data-theme="light">
+	<nav class="nav" aria-label="Primary">
+		<div class="container nav-row">
+			<a href="#home" class="brand" aria-label="Tide PlayClean home">
+				<span class="brand-mark" aria-hidden="true"></span>
+				<span>PlayClean</span>
+			</a>
+			<ul class="nav-links">
+				<li><a href="#home">Home</a></li>
+				<li><a href="#how">How It Works</a></li>
+				<li><a href="#products">Products</a></li>
+				<li><a href="#map">Map</a></li>
+				<li><a href="#community">Community</a></li>
+				<li><a href="#app">App</a></li>
+				<li><a href="#shop">Shop</a></li>
+			</ul>
+			<button id="themeToggle" class="theme-toggle" aria-label="Switch color theme" title="Switch theme">☀️</button>
+		</div>
+	</nav>
+
+	<main>
+		<section id="home" class="hero" aria-label="Introduction page">
+			<div class="hero-bg" aria-hidden="true"></div>
+			<div class="stain one" aria-hidden="true"></div>
+			<div class="stain two" aria-hidden="true"></div>
+			<div class="stain three" aria-hidden="true"></div>
+			<div class="ring a" aria-hidden="true"></div>
+			<div class="ring b" aria-hidden="true"></div>
+			<div class="ring c" aria-hidden="true"></div>
+
+			<div class="container hero-content">
+				<span class="eyebrow">Introducing Tide PlayClean</span>
+				<h1>Play Hard. Clean Smart.</h1>
+				<p>
+					Introducing Tide PlayClean - the connected cleaning system for kids, families, schools,
+					and communities.
+				</p>
+				<div class="btn-row">
+					<a class="btn btn-primary" href="#how">Explore the Ecosystem</a>
+					<a class="btn btn-secondary" href="#map">Find a Station</a>
+					<button id="watchDemoBtn" class="btn btn-ghost" type="button">Watch Demo</button>
+				</div>
+			</div>
+		</section>
+
+		<section aria-label="Mission highlights">
+			<div class="container">
+				<div class="section-head">
+					<h2>One System, Every Mess Moment</h2>
+					<p>
+						From playground spills to team practice mud, Tide PlayClean keeps kids playing while
+						helping families and communities reduce waste.
+					</p>
+				</div>
+				<div class="mission-grid">
+					<article class="card" aria-label="Fast cleanup">
+						<h3>Quick Response</h3>
+						<p>Stain pen, spray, and wipes are always clipped and ready right on the backpack.</p>
+					</article>
+					<article class="card" aria-label="Connected infrastructure">
+						<h3>Connected Stations</h3>
+						<p>Refill, rinse, and dry at smart public stations in parks, schools, and rec centers.</p>
+					</article>
+					<article class="card" aria-label="Community impact">
+						<h3>Shared Impact</h3>
+						<p>Track clothes saved, water saved, and wipes recycled through the community app.</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="how" aria-label="How it works">
+			<div class="container">
+				<div class="section-head">
+					<h2>How It Works</h2>
+					<p>Tap interactive steps to see stain vanishing, clip actions, and station-powered cleanups.</p>
+				</div>
+
+				<div class="steps-grid">
+					<article class="card">
+						<h3>Step 1 - Clip</h3>
+						<p>Hotspots reveal how each tool handles a different mess.</p>
+						<div class="step-hotspots">
+							<button class="chip" data-story="clip" data-text="Stain pen targets the mark directly for spot-by-spot lifting.">Stain Pen</button>
+							<button class="chip" data-story="clip" data-text="Wipe layer absorbs mess in one swipe, then seals in odor.">Wipe</button>
+							<button class="chip" data-story="clip" data-text="Micro spray refreshes fabric between classes or drills.">Spray</button>
+						</div>
+						<div class="story-output" id="story-clip">Tap a hotspot to preview the mini demo.</div>
+					</article>
+
+					<article class="card">
+						<h3>Step 2 - Station</h3>
+						<p>Tap station controls to run the quick rinse and dry sequence.</p>
+						<div class="step-hotspots">
+							<button class="chip" data-story="station" data-text="Quick rinse dispenses targeted water pressure to release dirt fast.">Rinse</button>
+							<button class="chip" data-story="station" data-text="Dry cycle uses low-energy warm air for ready-to-play fabric.">Quick Dry</button>
+							<button class="chip" data-story="station" data-text="Refill hub updates clip supplies and syncs usage data to the app.">Refill</button>
+						</div>
+						<div class="story-output" id="story-station">Tap a station item to animate the process.</div>
+					</article>
+
+					<article class="card">
+						<h3>Step 3 - App</h3>
+						<p>Scan stains, find stations, and update dashboard impact in real time.</p>
+						<div class="step-hotspots">
+							<button class="chip" data-story="app" data-text="Camera scanner identifies stain type and suggests the ideal clip routine.">Scan Stain</button>
+							<button class="chip" data-story="app" data-text="Map pinpoints nearby stations with refill level and wait estimates.">Locate Station</button>
+							<button class="chip" data-story="app" data-text="Community dashboard tracks points, badges, and water-saving wins.">Track Impact</button>
+						</div>
+						<div class="story-output" id="story-app">Tap an app feature to preview.</div>
+					</article>
+				</div>
+
+				<div class="card" style="margin-top:18px;">
+					<h3>Drag & Drop Story</h3>
+					<p>Drag the kid avatar through Clip, Station, and App to see the full journey.</p>
+					<div class="drag-play">
+						<div class="drop-zone" data-zone="Clip">Clip Zone</div>
+						<div class="drop-zone" data-zone="Station">Station Zone</div>
+						<div class="drop-zone" data-zone="App">App Zone</div>
+					</div>
+					<div style="margin-top:10px;display:flex;align-items:center;gap:10px;">
+						<div id="avatar" class="avatar" draggable="true" aria-label="Kid avatar">🧒</div>
+						<p id="dragStatus" class="story-output" style="margin:0;min-height:auto;">Start by dragging the avatar into Clip Zone.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="products" aria-label="Products page">
+			<div class="container">
+				<div class="section-head">
+					<h2>Products</h2>
+					<p>Explore the PlayClean Clip, Station, and App. Hover or tap for mini animations.</p>
+				</div>
+
+				<div class="products-grid">
+					<article class="card">
+						<h3>PlayClean Clip</h3>
+						<div class="viewer" aria-label="Clip 360 viewer">
+							<div id="clipModel" class="clip-model"></div>
+						</div>
+						<label for="rotation" style="font-size:0.86rem;color:var(--muted);display:block;margin-bottom:8px;">360 Viewer</label>
+						<input id="rotation" type="range" min="0" max="360" value="28" style="width:100%;margin-bottom:10px;" />
+						<div class="hotspots">
+							<button class="chip" data-story="product-clip" data-text="Stain pen clicks out from the side with one hand.">Hotspot: Pen</button>
+							<button class="chip" data-story="product-clip" data-text="Wipe chamber pops open and reseals after use.">Hotspot: Wipe</button>
+							<button class="chip" data-story="product-clip" data-text="Spray nozzle mists lightly to prevent set-in stains.">Hotspot: Spray</button>
+						</div>
+						<div class="story-output" id="story-product-clip">Click hotspots to inspect clip parts.</div>
+						<button class="btn btn-primary" type="button" id="buyClipBtn">Buy Clip</button>
+					</article>
+
+					<article class="card">
+						<h3>PlayClean Station</h3>
+						<div class="viewer" aria-label="Station scene">
+							<div style="text-align:center;">
+								<div style="width:145px;height:86px;border-radius:12px;background:linear-gradient(120deg,#f25c05,#f29305);margin:0 auto 10px;"></div>
+								<p style="font-size:0.85rem;color:var(--muted);">Smart, refillable park/school station</p>
+							</div>
+						</div>
+						<p>Connected installation with refill analytics, usage tracking, and sustainable dispensing.</p>
+						<button class="btn btn-secondary" type="button" id="requestStationBtn">Request Installation</button>
+					</article>
+
+					<article class="card">
+						<h3>PlayClean App</h3>
+						<div class="viewer" aria-label="App preview">
+							<div style="width:130px;height:170px;border-radius:20px;border:5px solid #12408b;background:linear-gradient(180deg,#fff,#e5f2ff);display:grid;place-items:center;">
+								<div style="font-size:2rem;">📱</div>
+							</div>
+						</div>
+						<p>Scan stain, locate stations, and track collective impact with badges and school rankings.</p>
+						<div class="btn-row">
+							<a class="btn btn-primary" href="https://play.google.com" target="_blank" rel="noopener">Google Play</a>
+							<a class="btn btn-secondary" href="https://www.apple.com/app-store/" target="_blank" rel="noopener">App Store</a>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="map" aria-label="Station map">
+			<div class="container">
+				<div class="section-head">
+					<h2>Community Station Locator</h2>
+					<p>Tap map pins to preview active stations near parks, schools, and sports complexes.</p>
+				</div>
+
+				<div class="map-wrap">
+					<button class="pin" style="left:16%;top:26%;" data-place="Maple Park Station" data-state="Refills: 78% | Wait: 2 mins"></button>
+					<button class="pin" style="left:46%;top:42%;" data-place="Ridgeview Elementary" data-state="Refills: 55% | Wait: 5 mins"></button>
+					<button class="pin" style="left:70%;top:24%;" data-place="Lakeside Soccer Hub" data-state="Refills: 91% | Wait: 1 min"></button>
+					<button class="pin" style="left:74%;top:67%;" data-place="Southfield Rec Center" data-state="Refills: 63% | Wait: 3 mins"></button>
+					<div class="pin-info" id="pinInfo">
+						<strong>Maple Park Station</strong>
+						<p>Refills: 78% | Wait: 2 mins</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="community" aria-label="Community rewards">
+			<div class="container">
+				<div class="section-head">
+					<h2>Community & Rewards</h2>
+					<p>Interactive impact dashboard for families, schools, and local sports teams.</p>
+				</div>
+
+				<div class="community-grid">
+					<article class="card">
+						<h3>Impact Dashboard</h3>
+						<div class="counter-grid" id="counterGrid">
+							<div class="counter">
+								<strong data-count="12840">0</strong>
+								<span>Clothes Saved</span>
+							</div>
+							<div class="counter">
+								<strong data-count="564200">0</strong>
+								<span>Water Saved (L)</span>
+							</div>
+							<div class="counter">
+								<strong data-count="32210">0</strong>
+								<span>Wipes Recycled</span>
+							</div>
+						</div>
+						<div class="badges" aria-label="Badges">
+							<button class="badge" type="button">Stain Slayer</button>
+							<button class="badge" type="button">Water Hero</button>
+							<button class="badge" type="button">Team Refiller</button>
+							<button class="badge" type="button">Clean Sprint Champ</button>
+						</div>
+					</article>
+
+					<article class="card">
+						<h3>School Leaderboard</h3>
+						<ul class="leaderboard">
+							<li><span>1. Harborview Tigers</span><strong>9,420 pts</strong></li>
+							<li><span>2. Suntrail Panthers</span><strong>8,990 pts</strong></li>
+							<li><span>3. Brookfield Rockets</span><strong>8,440 pts</strong></li>
+							<li><span>4. Eastpoint Lightning</span><strong>7,930 pts</strong></li>
+						</ul>
+						<p style="margin-top:12px;">Kids earn badges when families, teams, and schools hit shared clean goals.</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="app" aria-label="App page">
+			<div class="container">
+				<div class="section-head">
+					<h2>PlayClean App</h2>
+					<p>Interactive phone mockup with stain scanner, station locator, and community dashboard.</p>
+				</div>
+
+				<div class="app-grid">
+					<div class="phone">
+						<div class="phone-screen">
+							<div class="phone-tabbar">
+								<button class="phone-tab active" data-pane="scanner">Scanner</button>
+								<button class="phone-tab" data-pane="locator">Locator</button>
+								<button class="phone-tab" data-pane="impact">Impact</button>
+							</div>
+							<div id="pane-scanner" class="phone-pane active">
+								<h4>Stain Scanner</h4>
+								<p>Detected: Grass + Juice blend</p>
+								<p>Recommended: Pen -> Wipe -> Mist</p>
+								<div style="margin-top:10px;padding:10px;border-radius:10px;background:#e4f2ff;">Confidence: 94%</div>
+							</div>
+							<div id="pane-locator" class="phone-pane">
+								<h4>Station Locator</h4>
+								<p>Nearest: Maple Park (0.4 mi)</p>
+								<p>Queue: 2 mins</p>
+								<p>Refill stock: High</p>
+							</div>
+							<div id="pane-impact" class="phone-pane">
+								<h4>Community Dashboard</h4>
+								<p>This week: 24 stains cleaned</p>
+								<p>Water saved: 42L</p>
+								<p>Badge unlocked: Team Refiller</p>
+							</div>
+						</div>
+					</div>
+					<article class="card">
+						<h3>Bring PlayClean Anywhere</h3>
+						<p>
+							Use the app to identify stains instantly, navigate to nearby stations, and celebrate
+							your neighborhood's impact with live progress and rewards.
+						</p>
+						<div class="btn-row">
+							<button class="btn btn-primary" id="tryDemoBtn" type="button">Try the Web Demo</button>
+							<a class="btn btn-secondary" href="https://www.apple.com/app-store/" target="_blank" rel="noopener">Download the App</a>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="shop" aria-label="Shop and purchase">
+			<div class="container">
+				<div class="section-head">
+					<h2>Shop & Purchase Flow</h2>
+					<p>Buy clips instantly or request custom station installations for schools and communities.</p>
+				</div>
+
+				<div class="shop-grid">
+					<article class="card">
+						<h3>PlayClean Clip Starter</h3>
+						<p>Includes clip body, stain pen, wipes, and refresh spray. Ships in 3-5 days.</p>
+						<button class="btn btn-primary" id="shopClipBtn" type="button">Add Clip to Cart</button>
+					</article>
+					<article class="card">
+						<h3>Station Installation</h3>
+						<p>Request a quote for schools, parks, and rec centers with maintenance planning.</p>
+						<button class="btn btn-secondary" id="shopStationBtn" type="button">Request Installation</button>
+					</article>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="container footer-row">
+			<div>
+				<p><strong>Contact & Support:</strong> support@tideplayclean.example</p>
+				<p>We are saving water, clothes, and communities, one stain at a time.</p>
+			</div>
+			<div class="socials" aria-label="Social links">
+				<a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
+				<a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+				<a href="https://www.tiktok.com" target="_blank" rel="noopener">TikTok</a>
+			</div>
+		</div>
+	</footer>
+
+	<div id="overlay" class="overlay" aria-hidden="true">
+		<div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+			<button class="close" id="closeModal" aria-label="Close modal">✕</button>
+			<h3 id="modalTitle">PlayClean Action Center</h3>
+			<p id="modalBody" style="margin:8px 0 10px;color:var(--muted);">Welcome to the demo.</p>
+			<div id="demoPreview" class="demo-preview" aria-hidden="true">
+				<div class="demo-kid">🧒</div>
+				<div class="demo-ring"></div>
+				<div class="demo-ring r2"></div>
+				<div class="demo-ring r3"></div>
+			</div>
+			<div id="cartControls" style="display:none;align-items:center;gap:10px;margin:8px 0;">
+				<label for="qty">Qty</label>
+				<input id="qty" type="number" min="1" value="1" style="width:70px;padding:6px;border-radius:8px;border:1px solid var(--line);" />
+				<button id="checkoutBtn" class="btn btn-primary" type="button">Checkout</button>
+			</div>
+			<form id="stationForm" style="display:none;gap:8px;" onsubmit="return false;">
+				<input id="orgName" type="text" placeholder="School or Organization" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);margin:8px 0;" />
+				<input id="contactEmail" type="email" placeholder="Contact Email" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);margin:8px 0;" />
+				<button id="sendRequestBtn" class="btn btn-secondary" type="button">Send Request</button>
+			</form>
+			<div id="confirmation" class="confirmation" role="status">You just helped a kid play cleaner!</div>
+		</div>
+	</div>
+
+	<script>
+		const body = document.body;
+		const themeToggle = document.getElementById("themeToggle");
+		const overlay = document.getElementById("overlay");
+		const closeModal = document.getElementById("closeModal");
+		const modalBody = document.getElementById("modalBody");
+		const confirmation = document.getElementById("confirmation");
+		const cartControls = document.getElementById("cartControls");
+		const stationForm = document.getElementById("stationForm");
+		const demoPreview = document.getElementById("demoPreview");
+
+		function openModal(type) {
+			confirmation.classList.remove("active");
+			cartControls.style.display = "none";
+			stationForm.style.display = "none";
+			demoPreview.classList.remove("active");
+			demoPreview.setAttribute("aria-hidden", "true");
+
+			if (type === "demo") {
+				modalBody.textContent = "Watch our 45-second concept demo: kids play, stations clean, communities earn impact points.";
+				demoPreview.classList.add("active");
+				demoPreview.setAttribute("aria-hidden", "false");
+			}
+
+			if (type === "clip") {
+				modalBody.textContent = "PlayClean Clip added to your mini cart. Select quantity and checkout.";
+				cartControls.style.display = "flex";
+			}
+
+			if (type === "station") {
+				modalBody.textContent = "Request a PlayClean Station installation for your school or community.";
+				stationForm.style.display = "grid";
+			}
+
+			overlay.classList.add("active");
+			overlay.setAttribute("aria-hidden", "false");
+		}
+
+		function closeActiveModal() {
+			overlay.classList.remove("active");
+			overlay.setAttribute("aria-hidden", "true");
+		}
+
+		themeToggle.addEventListener("click", (event) => {
+			const ripple = document.createElement("span");
+			ripple.className = "ripple-transition";
+			ripple.style.left = event.clientX - 8 + "px";
+			ripple.style.top = event.clientY - 8 + "px";
+			document.body.appendChild(ripple);
+
+			const dark = body.getAttribute("data-theme") === "dark";
+			body.setAttribute("data-theme", dark ? "light" : "dark");
+			themeToggle.textContent = dark ? "☀️" : "🌙";
+
+			setTimeout(() => ripple.remove(), 760);
+		});
+
+		document.getElementById("watchDemoBtn").addEventListener("click", () => openModal("demo"));
+		document.getElementById("buyClipBtn").addEventListener("click", () => openModal("clip"));
+		document.getElementById("shopClipBtn").addEventListener("click", () => openModal("clip"));
+		document.getElementById("requestStationBtn").addEventListener("click", () => openModal("station"));
+		document.getElementById("shopStationBtn").addEventListener("click", () => openModal("station"));
+		document.getElementById("tryDemoBtn").addEventListener("click", () => openModal("demo"));
+
+		closeModal.addEventListener("click", closeActiveModal);
+		overlay.addEventListener("click", (event) => {
+			if (event.target === overlay) {
+				closeActiveModal();
+			}
+		});
+
+		document.getElementById("checkoutBtn").addEventListener("click", () => {
+			const qty = Number(document.getElementById("qty").value) || 1;
+			modalBody.textContent = "Order confirmed for " + qty + " PlayClean Clip" + (qty > 1 ? "s." : ".");
+			cartControls.style.display = "none";
+			confirmation.classList.add("active");
+		});
+
+		document.getElementById("sendRequestBtn").addEventListener("click", () => {
+			const org = document.getElementById("orgName").value.trim();
+			const email = document.getElementById("contactEmail").value.trim();
+			if (!org || !email) {
+				modalBody.textContent = "Please fill in both organization and contact email.";
+				return;
+			}
+			modalBody.textContent = "Installation request sent for " + org + ". Our team will contact you at " + email + ".";
+			stationForm.style.display = "none";
+			confirmation.classList.add("active");
+		});
+
+		const storyButtons = document.querySelectorAll(".chip");
+		storyButtons.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				const storyId = btn.getAttribute("data-story");
+				const text = btn.getAttribute("data-text");
+				const output = document.getElementById("story-" + storyId);
+				if (!output) {
+					return;
+				}
+
+				document.querySelectorAll('.chip[data-story="' + storyId + '"]').forEach((sibling) => sibling.classList.remove("active"));
+				btn.classList.add("active");
+				output.textContent = text;
+			});
+		});
+
+		const rotationInput = document.getElementById("rotation");
+		const clipModel = document.getElementById("clipModel");
+		rotationInput.addEventListener("input", () => {
+			clipModel.style.transform = "rotateY(" + rotationInput.value + "deg) rotateX(12deg)";
+		});
+		clipModel.style.transform = "rotateY(28deg) rotateX(12deg)";
+
+		const pinInfo = document.getElementById("pinInfo");
+		document.querySelectorAll(".pin").forEach((pin) => {
+			pin.addEventListener("click", () => {
+				const place = pin.getAttribute("data-place");
+				const state = pin.getAttribute("data-state");
+				pinInfo.innerHTML = "<strong>" + place + "</strong><p>" + state + "</p>";
+			});
+		});
+
+		const tabs = document.querySelectorAll(".phone-tab");
+		tabs.forEach((tab) => {
+			tab.addEventListener("click", () => {
+				tabs.forEach((t) => t.classList.remove("active"));
+				document.querySelectorAll(".phone-pane").forEach((pane) => pane.classList.remove("active"));
+				tab.classList.add("active");
+				const pane = document.getElementById("pane-" + tab.getAttribute("data-pane"));
+				if (pane) {
+					pane.classList.add("active");
+				}
+			});
+		});
+
+		const avatar = document.getElementById("avatar");
+		const dragStatus = document.getElementById("dragStatus");
+		avatar.addEventListener("dragstart", (event) => {
+			event.dataTransfer.setData("text/plain", "kid-avatar");
+		});
+
+		document.querySelectorAll(".drop-zone").forEach((zone) => {
+			zone.addEventListener("dragover", (event) => event.preventDefault());
+			zone.addEventListener("drop", (event) => {
+				event.preventDefault();
+				if (event.dataTransfer.getData("text/plain") === "kid-avatar") {
+					zone.appendChild(avatar);
+					const current = zone.getAttribute("data-zone");
+					dragStatus.textContent = "Great move: kid completed " + current + " step. Continue the journey to see full clean cycle.";
+				}
+			});
+		});
+
+		const counters = document.querySelectorAll(".counter strong");
+		let counterAnimated = false;
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting && !counterAnimated) {
+					counterAnimated = true;
+					counters.forEach((counter) => {
+						const target = Number(counter.getAttribute("data-count"));
+						let current = 0;
+						const step = Math.max(1, Math.floor(target / 90));
+						const timer = setInterval(() => {
+							current += step;
+							if (current >= target) {
+								current = target;
+								clearInterval(timer);
+							}
+							counter.textContent = current.toLocaleString();
+						}, 20);
+					});
+				}
+			});
+		}, { threshold: 0.35 });
+
+		const counterGrid = document.getElementById("counterGrid");
+		if (counterGrid) {
+			observer.observe(counterGrid);
+		}
+	</script>
+</body>
+</html>
