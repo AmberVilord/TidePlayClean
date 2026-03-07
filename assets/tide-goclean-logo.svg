@@ -1,19 +1,15 @@
 <svg width="960" height="280" viewBox="0 0 960 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">Tide GoClean Logo</title>
-  <desc id="desc">Tide GoClean wordmark with globe symbol and tagline.</desc>
+  <desc id="desc">Tide GoClean wordmark with globe symbol, continents, and a solid directional arrow.</desc>
   <defs>
     <clipPath id="markClip">
       <circle cx="140" cy="140" r="104" />
     </clipPath>
-    <linearGradient id="waveGrad" x1="34" y1="132" x2="224" y2="168" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#F25C05" />
-      <stop offset="1" stop-color="#FF8B3D" />
-    </linearGradient>
   </defs>
 
-  <circle cx="140" cy="140" r="112" stroke="#003A8F" stroke-width="8" fill="white" />
+  <circle cx="140" cy="140" r="112" stroke="#0057B8" stroke-width="8" fill="#0057B8" fill-opacity="0.4" />
 
-  <g clip-path="url(#markClip)" stroke="#4CC3F1" stroke-width="4" stroke-linecap="round" opacity="0.85">
+  <g clip-path="url(#markClip)" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.92">
     <path d="M42 108C80 92 200 92 238 108" />
     <path d="M38 140C80 124 200 124 242 140" />
     <path d="M42 172C80 188 200 188 238 172" />
@@ -22,11 +18,21 @@
     <path d="M184 40C202 90 202 190 184 240" />
   </g>
 
-  <g clip-path="url(#markClip)">
-    <path d="M34 164C84 136 158 128 246 150L246 190C160 170 90 176 34 200V164Z" fill="url(#waveGrad)" />
-    <path d="M124 165H158V155L188 177L158 199V189H124V165Z" fill="#F25C05" fill-opacity="0.5" />
+  <g clip-path="url(#markClip)" fill="#F58220" stroke="#D96B0A" stroke-width="1.3" stroke-linejoin="round">
+    <path d="M120 52L130 47L146 47L158 52L152 59L134 60L120 52Z" />
+    <path d="M70 100L78 88L92 80L106 78L118 82L128 92L126 104L118 112L108 116L106 124L96 130L84 132L74 124L68 114L70 100Z" />
+    <path d="M106 136L114 140L120 150L120 160L116 172L110 182L108 194L102 204L94 206L88 200L88 190L94 180L98 168L100 156L102 144L106 136Z" />
+    <path d="M138 96L148 92L160 92L170 96L172 104L166 110L156 112L146 110L140 104L138 96Z" />
+    <path d="M150 114L160 116L168 124L172 134L172 146L168 158L162 168L154 172L148 166L144 158L144 146L146 132L150 114Z" />
+    <path d="M172 86L182 80L196 78L210 80L222 86L230 96L232 108L226 118L216 126L204 130L192 132L182 128L174 120L170 110L170 96L172 86Z" />
+    <path d="M186 170L194 166L204 166L212 170L216 178L212 186L202 192L192 192L186 186L182 178L186 170Z" />
+    <path d="M90 218L104 212L124 210L144 210L164 212L180 216L190 218L178 224L160 226L138 226L118 224L102 222L90 218Z" />
   </g>
 
-  <text x="298" y="126" fill="#003A8F" font-size="86" font-weight="700" font-family="Montserrat, Poppins, Inter, Arial, sans-serif">Tide GoClean</text>
-  <text x="302" y="182" fill="#003A8F" opacity="0.78" font-size="34" font-weight="500" font-family="Montserrat, Poppins, Inter, Arial, sans-serif">Clean Anywhere. Anytime.</text>
+  <g>
+    <path d="M8 182C58 216 170 220 244 204L244 188L278 208L244 228L244 212C170 226 58 224 8 194Z" fill="#FFD447" fill-opacity="0.35" stroke="#0057B8" stroke-width="4" stroke-linejoin="round" />
+  </g>
+
+  <text x="298" y="126" fill="#0057B8" font-size="86" font-weight="700" font-family="Montserrat, Poppins, Inter, Arial, sans-serif">Tide GoClean</text>
+  <text x="302" y="182" fill="#0057B8" opacity="0.82" font-size="34" font-weight="500" font-family="Montserrat, Poppins, Inter, Arial, sans-serif">Clean Anywhere. Anytime.</text>
 </svg>

@@ -1,19 +1,15 @@
 <svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">Tide GoClean Globe Symbol</title>
-  <desc id="desc">A circular globe with latitude-longitude grid, orange wave, and forward arrow.</desc>
+  <desc id="desc">A circular globe with latitude-longitude grid, continents, and a solid forward arrow wave.</desc>
   <defs>
     <clipPath id="globeClip">
       <circle cx="128" cy="128" r="104" />
     </clipPath>
-    <linearGradient id="waveGrad" x1="34" y1="132" x2="224" y2="168" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#F25C05" />
-      <stop offset="1" stop-color="#FF8B3D" />
-    </linearGradient>
   </defs>
 
-  <circle cx="128" cy="128" r="112" stroke="#003A8F" stroke-width="8" fill="white" />
+  <circle cx="128" cy="128" r="112" stroke="#0057B8" stroke-width="8" fill="#0057B8" fill-opacity="0.4" />
 
-  <g clip-path="url(#globeClip)" stroke="#4CC3F1" stroke-width="4" stroke-linecap="round" opacity="0.85">
+  <g clip-path="url(#globeClip)" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.92">
     <path d="M30 96C68 80 188 80 226 96" />
     <path d="M26 128C68 112 188 112 230 128" />
     <path d="M30 160C68 176 188 176 226 160" />
@@ -23,8 +19,18 @@
     <path d="M172 28C190 78 190 178 172 228" />
   </g>
 
-  <g clip-path="url(#globeClip)">
-    <path d="M22 152C72 124 146 116 234 138L234 178C148 158 78 164 22 188V152Z" fill="url(#waveGrad)" />
-    <path d="M112 153H146V143L176 165L146 187V177H112V153Z" fill="#F25C05" fill-opacity="0.5" />
+  <g clip-path="url(#globeClip)" fill="#F58220" stroke="#D96B0A" stroke-width="1.3" stroke-linejoin="round">
+    <path d="M108 40L118 35L134 35L146 40L140 47L122 48L108 40Z" />
+    <path d="M58 88L66 76L80 68L94 66L106 70L116 80L114 92L106 100L96 104L94 112L84 118L72 120L62 112L56 102L58 88Z" />
+    <path d="M94 124L102 128L108 138L108 148L104 160L98 170L96 182L90 192L82 194L76 188L76 178L82 168L86 156L88 144L90 132L94 124Z" />
+    <path d="M126 84L136 80L148 80L158 84L160 92L154 98L144 100L134 98L128 92L126 84Z" />
+    <path d="M138 102L148 104L156 112L160 122L160 134L156 146L150 156L142 160L136 154L132 146L132 134L134 120L138 102Z" />
+    <path d="M160 74L170 68L184 66L198 68L210 74L218 84L220 96L214 106L204 114L192 118L180 120L170 116L162 108L158 98L158 84L160 74Z" />
+    <path d="M174 158L182 154L192 154L200 158L204 166L200 174L190 180L180 180L174 174L170 166L174 158Z" />
+    <path d="M78 206L92 200L112 198L132 198L152 200L168 204L178 206L166 212L148 214L126 214L106 212L90 210L78 206Z" />
+  </g>
+
+  <g>
+    <path d="M6 170C54 202 156 204 232 190L232 176L252 194L232 212L232 198C156 212 54 210 6 182Z" fill="#FFD447" fill-opacity="0.35" stroke="#0057B8" stroke-width="4" stroke-linejoin="round" />
   </g>
 </svg>

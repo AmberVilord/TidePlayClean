@@ -1,6 +1,6 @@
 <svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">Tide GoClean App Icon</title>
-  <desc id="desc">App icon with globe, orange wave, and forward arrow on deep blue background.</desc>
+  <desc id="desc">App icon with globe, continent shapes, and a solid forward arrow on deep blue background.</desc>
   <defs>
     <clipPath id="iconClip">
       <rect x="16" y="16" width="224" height="224" rx="52" />
@@ -8,17 +8,13 @@
     <clipPath id="globeClip">
       <circle cx="128" cy="128" r="86" />
     </clipPath>
-    <linearGradient id="waveGrad" x1="52" y1="118" x2="204" y2="154" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#F25C05" />
-      <stop offset="1" stop-color="#FF8B3D" />
-    </linearGradient>
   </defs>
 
-  <rect x="16" y="16" width="224" height="224" rx="52" fill="#003A8F" />
+  <rect x="16" y="16" width="224" height="224" rx="52" fill="#0057B8" />
   <g clip-path="url(#iconClip)">
-    <circle cx="128" cy="128" r="86" stroke="#4CC3F1" stroke-width="6" fill="none" />
+    <circle cx="128" cy="128" r="86" stroke="#FFFFFF" stroke-width="6" fill="none" />
 
-    <g clip-path="url(#globeClip)" stroke="#4CC3F1" stroke-width="3.2" stroke-linecap="round" opacity="0.95">
+    <g clip-path="url(#globeClip)" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" opacity="0.95">
       <path d="M52 104C82 92 174 92 204 104" />
       <path d="M50 128C84 116 172 116 206 128" />
       <path d="M52 152C82 164 174 164 204 152" />
@@ -27,9 +23,19 @@
       <path d="M164 48C178 90 178 166 164 208" />
     </g>
 
-    <g clip-path="url(#globeClip)">
-      <path d="M44 144C84 122 144 116 212 132L212 164C146 148 90 152 44 172V144Z" fill="url(#waveGrad)" />
-      <path d="M110 144H136V136L158 154L136 172V164H110V144Z" fill="#F25C05" fill-opacity="0.5" />
+    <g clip-path="url(#globeClip)" fill="#F58220" stroke="#D96B0A" stroke-width="1.1" stroke-linejoin="round">
+      <path d="M112 58L120 54L136 54L144 58L138 64L122 64L112 58Z" />
+      <path d="M74 96L80 88L92 82L104 80L114 84L122 92L120 102L112 108L102 112L100 118L92 122L82 124L74 118L68 108L70 98L74 96Z" />
+      <path d="M104 128L110 132L114 140L114 148L110 158L106 166L104 176L98 182L92 182L86 176L86 168L90 160L94 150L96 140L98 132L104 128Z" />
+      <path d="M128 94L136 90L146 90L154 94L156 100L150 104L142 106L134 104L128 100L128 94Z" />
+      <path d="M138 110L146 112L152 118L156 126L156 136L152 146L146 154L140 154L134 148L132 140L132 130L134 120L138 110Z" />
+      <path d="M156 88L164 82L176 80L188 82L198 88L204 96L204 106L200 114L190 120L180 122L170 124L162 120L156 112L152 104L152 94L156 88Z" />
+      <path d="M168 156L174 152L182 152L190 156L194 164L190 170L182 174L172 174L166 170L164 162L168 156Z" />
+      <path d="M84 192L96 186L112 184L130 184L148 186L164 190L172 192L160 196L144 198L126 198L108 196L94 194L84 192Z" />
+    </g>
+
+    <g>
+      <path d="M30 156C66 178 146 182 204 174L204 162L234 176L204 190L204 180C146 188 66 186 30 170Z" fill="#FFD447" fill-opacity="0.35" stroke="#0057B8" stroke-width="3.2" stroke-linejoin="round" />
     </g>
   </g>
 </svg>
