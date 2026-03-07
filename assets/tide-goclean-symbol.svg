@@ -1,0 +1,30 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Tide GoClean Globe Symbol</title>
+  <desc id="desc">A circular globe with latitude-longitude grid, orange wave, and forward arrow.</desc>
+  <defs>
+    <clipPath id="globeClip">
+      <circle cx="128" cy="128" r="104" />
+    </clipPath>
+    <linearGradient id="waveGrad" x1="34" y1="132" x2="224" y2="168" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F25C05" />
+      <stop offset="1" stop-color="#FF8B3D" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="128" cy="128" r="112" stroke="#003A8F" stroke-width="8" fill="white" />
+
+  <g clip-path="url(#globeClip)" stroke="#4CC3F1" stroke-width="4" stroke-linecap="round" opacity="0.85">
+    <path d="M30 96C68 80 188 80 226 96" />
+    <path d="M26 128C68 112 188 112 230 128" />
+    <path d="M30 160C68 176 188 176 226 160" />
+
+    <path d="M84 28C66 78 66 178 84 228" />
+    <path d="M128 24C112 78 112 178 128 232" />
+    <path d="M172 28C190 78 190 178 172 228" />
+  </g>
+
+  <g clip-path="url(#globeClip)">
+    <path d="M22 152C72 124 146 116 234 138L234 178C148 158 78 164 22 188V152Z" fill="url(#waveGrad)" />
+    <path d="M112 153H146V143L176 165L146 187V177H112V153Z" fill="#F25C05" fill-opacity="0.5" />
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Tide GoClean App Icon</title>
+  <desc id="desc">App icon with globe, orange wave, and forward arrow on deep blue background.</desc>
+  <defs>
+    <clipPath id="iconClip">
+      <rect x="16" y="16" width="224" height="224" rx="52" />
+    </clipPath>
+    <clipPath id="globeClip">
+      <circle cx="128" cy="128" r="86" />
+    </clipPath>
+    <linearGradient id="waveGrad" x1="52" y1="118" x2="204" y2="154" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F25C05" />
+      <stop offset="1" stop-color="#FF8B3D" />
+    </linearGradient>
+  </defs>
+
+  <rect x="16" y="16" width="224" height="224" rx="52" fill="#003A8F" />
+  <g clip-path="url(#iconClip)">
+    <circle cx="128" cy="128" r="86" stroke="#4CC3F1" stroke-width="6" fill="none" />
+
+    <g clip-path="url(#globeClip)" stroke="#4CC3F1" stroke-width="3.2" stroke-linecap="round" opacity="0.95">
+      <path d="M52 104C82 92 174 92 204 104" />
+      <path d="M50 128C84 116 172 116 206 128" />
+      <path d="M52 152C82 164 174 164 204 152" />
+      <path d="M92 48C78 90 78 166 92 208" />
+      <path d="M128 44C116 90 116 166 128 212" />
+      <path d="M164 48C178 90 178 166 164 208" />
+    </g>
+
+    <g clip-path="url(#globeClip)">
+      <path d="M44 144C84 122 144 116 212 132L212 164C146 148 90 152 44 172V144Z" fill="url(#waveGrad)" />
+      <path d="M110 144H136V136L158 154L136 172V164H110V144Z" fill="#F25C05" fill-opacity="0.5" />
+    </g>
+  </g>
+</svg>
