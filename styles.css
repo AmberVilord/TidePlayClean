@@ -943,6 +943,27 @@ main {
   margin-bottom: 8px;
 }
 
+.home-page .hero,
+.home-page .card,
+.home-page .page-head h2,
+.home-page .hero-metric-image {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.home-page .hero {
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 74%, rgba(0, 0, 0, 0.82) 88%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 74%, rgba(0, 0, 0, 0.82) 88%, rgba(0, 0, 0, 0) 100%);
+}
+
+.home-page .hero-metric-image {
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 66%, rgba(0, 0, 0, 0.7) 84%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 66%, rgba(0, 0, 0, 0.7) 84%, rgba(0, 0, 0, 0) 100%);
+  box-shadow:
+    0 0 28px rgba(255, 255, 255, 0.56),
+    0 14px 26px rgba(2, 16, 42, 0.26);
+}
+
 .card ul,
 .card ol,
 .spec-list {
