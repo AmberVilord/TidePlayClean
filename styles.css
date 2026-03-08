@@ -400,8 +400,124 @@ main {
 }
 
 .ecosystem-grid {
-  grid-template-columns: repeat(auto-fit, minmax(232px, 320px));
+  grid-template-columns: repeat(2, minmax(260px, 360px));
   justify-content: center;
+}
+
+.action-flow {
+  margin-top: 6px;
+  display: grid;
+  gap: 20px;
+}
+
+.action-step {
+  padding: 16px 4px 20px;
+  border-bottom: 1px solid rgba(13, 99, 191, 0.2);
+}
+
+.action-step-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.action-index {
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #f28a2f;
+  min-width: 2.1ch;
+}
+
+.action-step h3 {
+  margin: 0;
+  font-size: clamp(1.18rem, 2.3vw, 1.5rem);
+  color: #0e4f98;
+}
+
+.action-step h4 {
+  margin: 6px 0 0;
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f4f98;
+}
+
+.action-step p {
+  margin-top: 2px;
+  max-width: 78ch;
+}
+
+.action-list {
+  margin: 10px 0 0 18px;
+  display: grid;
+  gap: 7px;
+}
+
+.action-columns {
+  margin-top: 8px;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1.3fr 1fr;
+}
+
+.action-step-detail {
+  padding-top: 18px;
+}
+
+.action-list-inline {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.action-list-inline li {
+  border: 1px dashed rgba(13, 99, 191, 0.3);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.action-example {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-left: 4px solid #f28a2f;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.station-card {
+  background:
+    radial-gradient(circle at 88% 14%, rgba(76, 195, 241, 0.2), transparent 36%),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.97), rgba(241, 251, 255, 0.94) 62%, rgba(237, 246, 255, 0.95));
+}
+
+.station-layout {
+  margin-top: 12px;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1.25fr 1fr;
+}
+
+.station-block {
+  border: 1px solid rgba(13, 99, 191, 0.2);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.station-block h4 {
+  margin: 0;
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f4f98;
+}
+
+.station-block ul {
+  margin-top: 10px;
 }
 
 .packaging-grid .full {
@@ -677,6 +793,18 @@ main {
     min-height: 200px;
   }
 
+  .ecosystem-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .station-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .action-columns {
+    grid-template-columns: 1fr;
+  }
+
   .top {
     position: static;
   }
@@ -773,6 +901,18 @@ main {
     width: 40px;
     height: 40px;
     font-size: 1rem;
+  }
+
+  .action-step {
+    padding: 12px 2px 16px;
+  }
+
+  .action-step-head {
+    gap: 10px;
+  }
+
+  .action-index {
+    font-size: 1.18rem;
   }
 }
 
