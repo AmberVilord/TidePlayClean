@@ -1,5 +1,7 @@
 const cards = document.querySelectorAll('.card');
 
+const INTRO_TRANSITION_KEY = 'tide-intro-transition';
+
 if (cards.length) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -13,6 +15,52 @@ if (cards.length) {
     card.style.transitionDelay = (index % 4) * 70 + 'ms';
     observer.observe(card);
   });
+}
+
+function setupIntroTransition() {
+  const body = document.body;
+
+  if (body.classList.contains('intro-page')) {
+    const enterLink = document.querySelector('.intro-image-link');
+
+    if (enterLink) {
+      enterLink.addEventListener('click', (event) => {
+        if (event.defaultPrevented || event.button !== 0) {
+          return;
+        }
+
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+          return;
+        }
+
+        const targetHref = enterLink.getAttribute('href');
+        if (!targetHref) {
+          return;
+        }
+
+        event.preventDefault();
+        sessionStorage.setItem(INTRO_TRANSITION_KEY, '1');
+        body.classList.add('intro-transitioning');
+
+        window.setTimeout(() => {
+          window.location.href = targetHref;
+        }, 360);
+      });
+    }
+  }
+
+  if (body.classList.contains('home-page') && sessionStorage.getItem(INTRO_TRANSITION_KEY) === '1') {
+    body.classList.add('page-enter-home');
+    sessionStorage.removeItem(INTRO_TRANSITION_KEY);
+
+    window.setTimeout(() => {
+      body.classList.remove('page-enter-home');
+    }, 620);
+  }
+}
+
+function setupPageTransitions() {
+  return;
 }
 
 const CART_STORAGE_KEY = 'tide-goclean-cart-v1';
@@ -210,4 +258,6 @@ function setupCart() {
   renderCart();
 }
 
+setupIntroTransition();
+setupPageTransitions();
 setupCart();
