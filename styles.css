@@ -632,11 +632,18 @@ main {
 }
 
 .buy-thumb {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   max-height: 210px;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
   border-radius: 12px;
   border: 1px solid rgba(13, 99, 191, 0.2);
+}
+
+.buy-card.has-image h3 {
+  text-align: center;
 }
 
 .buy-price {
