@@ -387,16 +387,17 @@ body::after {
   height: auto;
   display: block;
   object-fit: contain;
-  -webkit-mask-image:
-    radial-gradient(ellipse 70% 58% at 50% 50%, rgba(0, 0, 0, 1) 42%, rgba(0, 0, 0, 0.76) 62%, rgba(0, 0, 0, 0.3) 80%, rgba(0, 0, 0, 0) 100%),
-    linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 18%, rgba(0, 0, 0, 0.9) 82%, rgba(0, 0, 0, 0) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.88) 22%, rgba(0, 0, 0, 0.88) 78%, rgba(0, 0, 0, 0) 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    radial-gradient(ellipse 70% 58% at 50% 50%, rgba(0, 0, 0, 1) 42%, rgba(0, 0, 0, 0.76) 62%, rgba(0, 0, 0, 0.3) 80%, rgba(0, 0, 0, 0) 100%),
-    linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 18%, rgba(0, 0, 0, 0.9) 82%, rgba(0, 0, 0, 0) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.88) 22%, rgba(0, 0, 0, 0.88) 78%, rgba(0, 0, 0, 0) 100%);
-  mask-composite: intersect;
+  clip-path: ellipse(47% 37% at 50% 50%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 78% at 50% 50%, rgba(0, 0, 0, 1) 28%, rgba(0, 0, 0, 0.9) 46%, rgba(0, 0, 0, 0.68) 62%, rgba(0, 0, 0, 0.34) 78%, rgba(0, 0, 0, 0.1) 90%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: radial-gradient(ellipse 90% 78% at 50% 50%, rgba(0, 0, 0, 1) 28%, rgba(0, 0, 0, 0.9) 46%, rgba(0, 0, 0, 0.68) 62%, rgba(0, 0, 0, 0.34) 78%, rgba(0, 0, 0, 0.1) 90%, rgba(0, 0, 0, 0) 100%);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  opacity: 0.92;
+  mix-blend-mode: normal;
+  box-shadow: 0 0 24px 12px rgba(255, 255, 255, 0.98);
+  filter: saturate(0.9) contrast(0.9) brightness(1.03);
 }
 
 .nav-links {
