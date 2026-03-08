@@ -522,6 +522,27 @@ main {
   box-shadow: 0 14px 28px rgba(8, 43, 85, 0.16);
 }
 
+.app-row {
+  margin-top: 6px;
+  display: grid;
+  gap: 16px;
+  align-items: start;
+  grid-template-columns: 0.9fr 1.4fr;
+}
+
+.app-image-wrap {
+  margin: 0;
+}
+
+.app-image {
+  width: 100%;
+  max-width: 340px;
+  display: block;
+  border-radius: 14px;
+  border: 1px solid rgba(13, 99, 191, 0.22);
+  box-shadow: 0 14px 28px rgba(8, 43, 85, 0.16);
+}
+
 .action-step-detail {
   padding-top: 18px;
 }
@@ -581,6 +602,22 @@ main {
 
 .packaging-grid .full {
   grid-column: 1 / -1;
+}
+
+.packaging-photo {
+  margin: 0;
+  border: 1px solid rgba(13, 99, 191, 0.18);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.packaging-photo img {
+  width: 100%;
+  display: block;
+  max-height: 420px;
+  object-fit: cover;
 }
 
 .buy-grid {
@@ -1055,6 +1092,15 @@ main {
 
   .stations-image {
     margin: 6px auto 0;
+    max-width: 460px;
+  }
+
+  .app-row {
+    grid-template-columns: 1fr;
+  }
+
+  .app-image {
+    margin: 0 auto;
     max-width: 460px;
   }
 
