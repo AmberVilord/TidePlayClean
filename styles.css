@@ -702,7 +702,7 @@ main {
 }
 
 .packaging-grid {
-  grid-template-columns: repeat(auto-fit, minmax(232px, 320px));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 460px));
   justify-content: center;
 }
 
