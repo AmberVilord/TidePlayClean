@@ -369,6 +369,18 @@ main {
   background: #f28a2f;
 }
 
+.logo-page .page-head h2::after {
+  background: #ffe600;
+}
+
+.ecosystem-page .page-head h2::after {
+  background: #ffe600;
+}
+
+.packaging-page .page-head h2::after {
+  background: #ffe600;
+}
+
 .page-head p {
   margin-top: 10px;
   max-width: 66ch;
