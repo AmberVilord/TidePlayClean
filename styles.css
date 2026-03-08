@@ -360,6 +360,15 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
 }
 
+.packaging-grid {
+  grid-template-columns: repeat(auto-fit, minmax(232px, 320px));
+  justify-content: center;
+}
+
+.packaging-grid .full {
+  grid-column: 1 / -1;
+}
+
 .card {
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
