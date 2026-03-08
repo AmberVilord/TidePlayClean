@@ -38,10 +38,11 @@ body {
   letter-spacing: 0.01em;
   line-height: 1.6;
   overflow-x: hidden;
-  background:
-    radial-gradient(circle at 12% 10%, rgba(32, 194, 220, 0.2), transparent 40%),
-    radial-gradient(circle at 88% 86%, rgba(92, 150, 230, 0.16), transparent 42%),
-    linear-gradient(155deg, #f1f9ff 0%, #f9fcff 45%, #eef5ff 100%);
+  background-image: url("https://static.vecteezy.com/system/resources/previews/005/344/451/large_2x/soap-bubbles-on-a-background-of-blue-water-as-a-texture-top-view-copy-empty-space-for-text-photo.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 body::before,
@@ -170,15 +171,24 @@ body::after {
   transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, color 180ms ease;
 }
 
-.nav-links a:hover,
+.nav-links a:hover {
+  color: #12335a;
+  border-color: rgba(255, 211, 79, 0.78);
+  background: linear-gradient(135deg, #ffe48a, #ffd34f);
+  box-shadow:
+    0 10px 20px rgba(10, 66, 130, 0.2),
+    0 0 16px rgba(255, 211, 79, 0.48),
+    0 0 0 1px rgba(255, 211, 79, 0.34) inset;
+  transform: translateY(-0.5px);
+}
+
 .nav-links a.active {
   color: #ffffff;
   border-color: rgba(242, 138, 47, 0.34);
   background: #0d63bf;
   box-shadow:
     0 10px 20px rgba(10, 66, 130, 0.22),
-    0 0 14px rgba(255, 211, 79, 0.35),
-    0 0 0 1px rgba(255, 211, 79, 0.26) inset;
+    0 0 0 1px rgba(13, 99, 191, 0.26) inset;
   transform: translateY(-0.5px);
 }
 
@@ -354,6 +364,20 @@ main {
   max-width: 66ch;
 }
 
+.page-head-centered {
+  text-align: center;
+}
+
+.page-head-centered h2::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-head-centered p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .grid {
   display: grid;
   gap: 16px;
@@ -361,6 +385,11 @@ main {
 }
 
 .packaging-grid {
+  grid-template-columns: repeat(auto-fit, minmax(232px, 320px));
+  justify-content: center;
+}
+
+.ecosystem-grid {
   grid-template-columns: repeat(auto-fit, minmax(232px, 320px));
   justify-content: center;
 }
@@ -388,10 +417,10 @@ main {
 
 .card:hover {
   transform: translateY(-4px) scale(1.005);
-  border-color: rgba(242, 138, 47, 0.28);
+  border-color: rgba(255, 211, 79, 0.78);
   box-shadow:
     var(--shadow-mid),
-    0 14px 30px rgba(242, 138, 47, 0.24);
+    0 14px 30px rgba(255, 211, 79, 0.34);
 }
 
 .card h3 {
@@ -510,15 +539,46 @@ main {
 
 .btn:hover {
   transform: translateY(-2px);
+  color: #12335a;
+  border-color: rgba(255, 211, 79, 0.82);
+  background: linear-gradient(135deg, #ffe48a, #ffd34f);
   box-shadow:
     0 16px 30px rgba(5, 28, 61, 0.2),
-    0 8px 20px rgba(242, 138, 47, 0.3);
+    0 8px 22px rgba(255, 211, 79, 0.42);
+}
+
+.btn.primary:hover {
+  color: #12335a;
+  border-color: rgba(255, 211, 79, 0.82);
+  background: linear-gradient(135deg, #ffe48a, #ffd34f);
 }
 
 .btn.primary {
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.28);
   background: var(--sea);
+}
+
+.open-page-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 999px;
+  background: #0d63bf;
+  border-color: rgba(13, 99, 191, 0.85);
+  color: #ffffff;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.open-page-btn:hover {
+  color: #ffffff;
+  border-color: rgba(255, 130, 33, 0.95);
+  background: #ff7a00;
+  box-shadow:
+    0 16px 30px rgba(5, 28, 61, 0.22),
+    0 8px 22px rgba(255, 122, 0, 0.5);
 }
 
 .footer {
