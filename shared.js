@@ -67,6 +67,15 @@ function setupCart() {
         </div>
       </footer>
     </aside>
+    <div class="concept-overlay" hidden></div>
+    <section class="concept-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="GoClean concept notice">
+      <button type="button" class="concept-close" aria-label="Close concept notice">x</button>
+      <p class="concept-kicker">Student Concept Notice</p>
+      <h3>GoClean Concept Preview</h3>
+      <p>GoClean is a student concept created by Amber Vilord (University of Missouri) for the Global Career Accelerator challenge with Procter &amp; Gamble.</p>
+      <p>The project explores how Tide could extend clothing care beyond the laundry room through on-the-go cleaning solutions. This product is not available for purchase, and no transactions will occur.</p>
+      <button type="button" class="btn primary concept-ack">I Understand</button>
+    </section>
   `;
   document.body.appendChild(cartRoot);
 
@@ -78,6 +87,10 @@ function setupCart() {
   const clearBtn = cartRoot.querySelector('.cart-clear');
   const checkoutBtn = cartRoot.querySelector('.cart-checkout');
   const countBadge = cartTrigger.querySelector('.cart-count');
+  const conceptOverlay = cartRoot.querySelector('.concept-overlay');
+  const conceptModal = cartRoot.querySelector('.concept-modal');
+  const conceptClose = cartRoot.querySelector('.concept-close');
+  const conceptAcknowledge = cartRoot.querySelector('.concept-ack');
 
   function openCart() {
     overlay.hidden = false;
@@ -89,6 +102,18 @@ function setupCart() {
     overlay.hidden = true;
     drawer.classList.remove('open');
     drawer.setAttribute('aria-hidden', 'true');
+  }
+
+  function openConceptModal() {
+    conceptOverlay.hidden = false;
+    conceptModal.classList.add('open');
+    conceptModal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeConceptModal() {
+    conceptOverlay.hidden = true;
+    conceptModal.classList.remove('open');
+    conceptModal.setAttribute('aria-hidden', 'true');
   }
 
   function updateCartCount() {
@@ -151,6 +176,14 @@ function setupCart() {
   cartTrigger.addEventListener('click', openCart);
   overlay.addEventListener('click', closeCart);
   closeBtn.addEventListener('click', closeCart);
+  conceptOverlay.addEventListener('click', closeConceptModal);
+  conceptClose.addEventListener('click', closeConceptModal);
+  conceptAcknowledge.addEventListener('click', closeConceptModal);
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && conceptModal.classList.contains('open')) {
+      closeConceptModal();
+    }
+  });
 
   clearBtn.addEventListener('click', () => {
     cart = [];
@@ -162,7 +195,7 @@ function setupCart() {
     if (!cart.length) {
       return;
     }
-    alert('Checkout demo: your cart has been saved.');
+    openConceptModal();
   });
 
   document.querySelectorAll('[data-add-to-cart]').forEach((button) => {
