@@ -1,3 +1,53 @@
+@font-face {
+  font-family: "Tide";
+  src:
+    url("https://tide.com/fonts/tide_type_light-webfont.woff2") format("woff2"),
+    url("https://tide.com/fonts/tide_type_light-webfont.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tide";
+  src:
+    url("https://tide.com/fonts/tide_type_regular-webfont.woff2") format("woff2"),
+    url("https://tide.com/fonts/tide_type_regular-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tide";
+  src:
+    url("https://tide.com/fonts/tide_type_bold-webfont.woff2") format("woff2"),
+    url("https://tide.com/fonts/tide_type_bold-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MontserratRegular";
+  src:
+    url("https://tide.com/fonts/Montserrat-Regular.woff2") format("woff2"),
+    url("https://tide.com/fonts/Montserrat-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MontserratExtraBold";
+  src:
+    url("https://tide.com/fonts/Montserrat-ExtraBold.woff2") format("woff2"),
+    url("https://tide.com/fonts/Montserrat-ExtraBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --deep: #051c3d;
@@ -34,7 +84,7 @@ body {
 }
 
 body {
-  font-family: "Sora", "Segoe UI", sans-serif;
+  font-family: "Tide", "MontserratRegular", "Segoe UI", sans-serif;
   color: var(--ink);
   letter-spacing: 0.01em;
   line-height: 1.6;
@@ -51,9 +101,13 @@ body {
   margin: 0;
   display: grid;
   place-items: center;
+  padding: clamp(20px, 4vw, 42px) 14px;
   background:
-    linear-gradient(145deg, rgba(3, 25, 56, 0.78), rgba(7, 50, 102, 0.68)),
+    radial-gradient(circle at 14% 18%, rgba(153, 215, 255, 0.24), rgba(153, 215, 255, 0) 40%),
+    radial-gradient(circle at 84% 12%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 34%),
+    linear-gradient(165deg, rgba(2, 17, 49, 0.96), rgba(7, 39, 97, 0.9) 48%, rgba(3, 21, 59, 0.95)),
     url("https://static.vecteezy.com/system/resources/previews/005/344/451/large_2x/soap-bubbles-on-a-background-of-blue-water-as-a-texture-top-view-copy-empty-space-for-text-photo.jpg");
+  background-blend-mode: screen, screen, normal, overlay;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -64,57 +118,110 @@ body {
 .intro-page::after {
   content: "";
   position: absolute;
-  width: clamp(280px, 34vw, 480px);
-  height: clamp(280px, 34vw, 480px);
-  border-radius: 999px;
   pointer-events: none;
   z-index: 0;
-  border: 1px solid rgba(230, 244, 255, 0.36);
-  box-shadow:
-    inset 0 0 40px rgba(255, 255, 255, 0.2),
-    0 0 36px rgba(194, 228, 255, 0.26);
 }
 
 .intro-page::before {
-  top: -110px;
-  right: -120px;
-  background: radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.36), rgba(154, 221, 255, 0.08) 54%, rgba(154, 221, 255, 0));
-  animation: drift 18s ease-in-out infinite;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 24%),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0), rgba(1, 11, 30, 0.52) 82%, rgba(1, 10, 26, 0.72) 100%);
 }
 
 .intro-page::after {
-  bottom: -140px;
-  left: -80px;
-  background: radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.3), rgba(151, 216, 255, 0.08) 56%, rgba(151, 216, 255, 0));
-  animation: drift 21s ease-in-out infinite reverse;
+  inset: 0;
+  opacity: 0.28;
+  background: repeating-linear-gradient(102deg, rgba(216, 238, 255, 0.18) 0 1px, rgba(216, 238, 255, 0) 1px 13px);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0));
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0));
 }
 
 .intro-main {
-  width: min(960px, calc(100vw - 2rem));
-  padding: 24px 0;
+  width: min(980px, calc(100vw - 1.6rem));
+  padding: clamp(14px, 2.6vw, 28px) 0;
   position: relative;
   z-index: 1;
 }
 
 .intro-shell {
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(244, 224, 173, 0.36);
-  padding: clamp(46px, 8vw, 102px) clamp(24px, 5vw, 64px);
+  position: relative;
+  width: min(100%, 860px);
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
   display: grid;
+  gap: 22px;
   justify-items: center;
-  gap: 20px;
-  background:
-    radial-gradient(circle at 80% 18%, rgba(255, 236, 188, 0.2), rgba(255, 236, 188, 0) 42%),
-    linear-gradient(145deg, rgba(5, 32, 70, 0.83), rgba(8, 56, 112, 0.76));
-  backdrop-filter: blur(10px);
+}
+
+.intro-image-link {
+  position: relative;
+  display: block;
+  width: min(100%, 760px);
+  border-radius: 0;
+  overflow: visible;
+  text-decoration: none;
+  line-height: 0;
+  isolation: isolate;
+  -webkit-mask-image:
+    radial-gradient(ellipse 74% 60% at 50% 50%, rgba(0, 0, 0, 1) 48%, rgba(0, 0, 0, 0.84) 66%, rgba(0, 0, 0, 0.36) 84%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.92) 14%, rgba(0, 0, 0, 0.92) 86%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.92) 12%, rgba(0, 0, 0, 0.92) 88%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(ellipse 74% 60% at 50% 50%, rgba(0, 0, 0, 1) 48%, rgba(0, 0, 0, 0.84) 66%, rgba(0, 0, 0, 0.36) 84%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.92) 14%, rgba(0, 0, 0, 0.92) 86%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.92) 12%, rgba(0, 0, 0, 0.92) 88%, rgba(0, 0, 0, 0) 100%);
+  mask-composite: intersect;
+  transition: transform 260ms ease;
+}
+
+.intro-brand-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: saturate(0.94) brightness(0.96);
   box-shadow:
-    0 26px 52px rgba(4, 24, 52, 0.45),
-    inset 0 0 0 1px rgba(255, 241, 206, 0.16);
+    0 0 36px rgba(205, 231, 255, 0.34),
+    0 0 92px rgba(112, 183, 247, 0.24),
+    0 26px 48px rgba(2, 12, 38, 0.38);
+}
+
+.intro-image-cta {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(46px, 6.7vw, 75px);
+  transform: translate(-50%, 12px);
+  opacity: 0;
+  z-index: 2;
+  color: #fff7e2;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
+  font-size: clamp(0.78rem, 1.4vw, 0.98rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-shadow: 0 0 26px rgba(255, 239, 195, 0.62), 0 8px 20px rgba(2, 10, 33, 0.72);
+  transition: opacity 260ms ease, transform 260ms ease;
+  pointer-events: auto;
+}
+
+.intro-image-link:hover,
+.intro-image-link:focus-visible {
+  transform: translateY(-2px);
+}
+
+.intro-image-link:hover .intro-image-cta,
+.intro-image-link:focus-visible .intro-image-cta {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .intro-title {
   margin-top: 0;
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
   font-size: clamp(2.9rem, 11vw, 7.8rem);
   font-weight: 700;
   line-height: 0.92;
@@ -132,24 +239,65 @@ body {
   color: #ffdc7a;
 }
 
-.intro-enter {
-  min-width: 190px;
-  justify-content: center;
-  font-size: 0.84rem;
-  border-color: rgba(255, 232, 179, 0.56);
-  background: linear-gradient(135deg, #f3c779, #df9e51);
-  color: #1a3359;
+.intro-subhead {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: "Tide", "MontserratRegular", "Segoe UI", sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.22rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #f1f8ff;
+  text-shadow:
+    0 0 16px rgba(164, 221, 255, 0.42),
+    0 4px 14px rgba(3, 20, 62, 0.52);
+  text-align: center;
 }
 
-.intro-enter:hover {
-  color: #11294c;
-  border-color: rgba(255, 232, 179, 0.82);
-  background: linear-gradient(135deg, #f7d794, #e8af65);
+.intro-subhead::before,
+.intro-subhead::after {
+  content: "";
+  width: clamp(34px, 8vw, 76px);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(224, 245, 255, 0.9), rgba(255, 255, 255, 0));
 }
 
 @media (max-width: 900px) {
-  .intro-shell {
-    padding: clamp(34px, 9vw, 64px) clamp(18px, 6vw, 32px);
+  .intro-image-link {
+    -webkit-mask-image:
+      radial-gradient(ellipse 80% 66% at 50% 50%, rgba(0, 0, 0, 1) 44%, rgba(0, 0, 0, 0.82) 64%, rgba(0, 0, 0, 0.3) 84%, rgba(0, 0, 0, 0) 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 12%, rgba(0, 0, 0, 0.9) 88%, rgba(0, 0, 0, 0) 100%),
+      linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0.9) 90%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      radial-gradient(ellipse 80% 66% at 50% 50%, rgba(0, 0, 0, 1) 44%, rgba(0, 0, 0, 0.82) 64%, rgba(0, 0, 0, 0.3) 84%, rgba(0, 0, 0, 0) 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 12%, rgba(0, 0, 0, 0.9) 88%, rgba(0, 0, 0, 0) 100%),
+      linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0.9) 90%, rgba(0, 0, 0, 0) 100%);
+    mask-composite: intersect;
+  }
+
+  .intro-image-cta {
+    bottom: 38px;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+  }
+
+  .intro-subhead {
+    gap: 10px;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+  }
+
+  .intro-subhead::before,
+  .intro-subhead::after {
+    width: 30px;
+  }
+}
+
+@media (hover: none) {
+  .intro-image-cta {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -243,7 +391,7 @@ body::after {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 700;
@@ -266,7 +414,7 @@ body::after {
 .nav-links a {
   text-decoration: none;
   color: #164777;
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.07em;
@@ -308,7 +456,7 @@ body::after {
 h1,
 h2,
 h3 {
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
   line-height: 1.08;
   letter-spacing: 0.01em;
 }
@@ -436,7 +584,7 @@ main {
 .metric strong {
   display: block;
   font-size: 1rem;
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
 }
 
 .metric span {
@@ -542,7 +690,7 @@ main {
 }
 
 .action-index {
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
   line-height: 1;
@@ -754,7 +902,7 @@ main {
 }
 
 .buy-price {
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
   font-size: 1.28rem;
   font-weight: 700;
   color: #0d3f7f;
@@ -860,7 +1008,7 @@ main {
   border-radius: 10px;
   padding: 0.42rem 0.74rem;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(204, 236, 255, 0.08));
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
   font-size: 0.66rem;
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -896,7 +1044,7 @@ main {
   border: 1px solid rgba(13, 99, 191, 0.24);
   background: linear-gradient(140deg, #ffffff, #ebf8ff);
   color: var(--sea);
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -953,7 +1101,7 @@ main {
   border-radius: 999px;
   background: #ffffff;
   color: #164777;
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.07em;
@@ -1029,7 +1177,7 @@ main {
   border-radius: 10px;
   background: #ffffff;
   color: #164777;
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
   font-weight: 700;
   cursor: pointer;
 }
@@ -1078,7 +1226,7 @@ main {
 }
 
 .cart-total {
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "MontserratExtraBold", "Tide", "Segoe UI", sans-serif;
   font-weight: 700;
   color: #113e73;
 }
